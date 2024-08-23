@@ -20,9 +20,13 @@ abstract class PingPong
     public void ReceiveBall(object? p, PingPongEventArgs e) 
     { 
         int ballsLeft = BallsLeft(e);
-        PingPongPrinter(ballsLeft);
-        if (ballsLeft > 0) 
+        
+        if (ballsLeft > 0)
+        {
+            PingPongPrinter(ballsLeft);
             SendBall(new PingPongEventArgs() { Balls = ballsLeft });
+        }
+            
     }
     
     protected abstract int BallsLeft(PingPongEventArgs e);
@@ -37,7 +41,11 @@ class Ping : PingPong
     public Ping() : this(5) { }
     public Ping(int balls) => StartBalls = balls;
 
-    public void StartPingPong() => SendBall(new PingPongEventArgs() { Balls = StartBalls});
+    public void StartPingPong()
+    {
+        PingPongPrinter(StartBalls);
+        SendBall(new PingPongEventArgs() { Balls = StartBalls });
+    }
 
     protected override int BallsLeft(PingPongEventArgs e) => e.Balls - 1;
 
